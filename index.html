@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Alchemists Marbles</title>
+    <style>
+
+      body {
+        background-size: cover;
+        background-color: black;
+        background-image: url('./img/background.jpg');
+        background-repeat: no-repeat;
+        color: white;
+
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.5vw;
+      }
+
+      .wrapper {
+        position: relative;
+      }
+
+      .field-container {
+        position: absolute;
+        width: 70%;
+
+        transition: opacity;
+        opacity: 1;
+      }
+
+      .field-ratio {
+        position: relative;
+
+        width: 100%;
+        height: 0;
+        padding-top: 89.227%; /* = width * X */
+      }
+
+      .field {
+
+        position: absolute;
+        width: 8.5%; /* 9.091 */
+        height: 11%; /* 1 / 8.5 */
+
+        opacity: 1;
+        transition: opacity 0.5s, transform 1s;
+
+        background-size: contain;
+        background-image: url('./img/field.png');
+        background-repeat: no-repeat;
+
+        filter: drop-shadow(0 0 5px #000000);
+
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      .game-lost .field {
+        filter: drop-shadow(0 0 5px red);
+      }
+
+      .game-lost .marble {
+        background-color: darkred;
+      }
+
+      .field-container.field-loading .field {
+          transform: translateY(+5%) translateX(+5%) scale(1.1);
+          opacity: 0;
+      }
+
+      .field-container.field-won .field {
+          transform: translateY(-50%) scale(0.5) rotate(180deg);
+          opacity: 0;
+          transition: opacity 1s, transform 2s;
+      }
+
+      .field-container.no-transition .field {
+          transition: none !important;
+      }
+
+      .field:hover {
+        /* opacity: 0.6; */
+        /* transform: translateY(-2%) translateX(-1%); */
+      }
+
+      .field.field-selected .marble {
+        background-color: #F08000;
+        box-shadow: 0 0 0.2vw 0.2vw #F08000;
+      }
+
+      .field.field-selectable .marble {
+        opacity: 1;
+      }
+
+      .marble {
+        position: relative;
+        left: 15%;
+        top: 19%;
+        width: 70%;
+        height: 0;
+        padding-bottom: 70%;
+
+        opacity: 0.5;
+
+        background-color: black;
+        border-radius: 50%;
+
+        box-shadow: 0.1vw 0.1vw 0.1vw black;
+      }
+
+      .field.marble-gone .marble {
+        transform: scale(0.9);
+        box-shadow: 0 0 0.5vw 0.5vw yellow;
+        transition: box-shadow 0.5s, opacity 0.5s, transform 0.5s;
+        opacity: 0 !important;
+      }
+
+      .marble:hover {
+        background-color: darkorange;
+        box-shadow: 0.1vw 0.1vw 0.1vw darkorange;
+      }
+
+      .field-highlighted .marble {
+        background-color: green;
+        box-shadow: 0vw 0vw 0.5vw 0.5vw green;
+        transition: box-shadow 0.5s;
+      }
+
+      .marble-text {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+
+        color: white;
+
+        font-size: 2.8vw;
+        font-weight: bold;
+        padding-top: 12%;
+        text-align: center;
+      }
+
+      .marble-glass {
+        position: absolute;
+        content: '';
+        background-size: contain;
+        background-image: url('./img/glass.png');
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .title-text {
+        margin: 5%;
+        text-align: center;
+        font-size: 2.5vw;
+      }
+
+      .score-text {
+        margin: 5%;
+        text-align: center;
+      }
+
+      .game-button {
+        display: block;
+        width: 90%;
+        margin: 5%;
+        padding: 2%;
+        font-size: 2vw;
+        background-color: white;
+        opacity: 0.9;
+      }
+
+      .menu-container {
+        background-color: rgba(0, 0, 0, 0.5);
+        position: absolute;
+        left: 70%;
+        width: 30%;
+      }
+
+      .stats-container {
+          float: left;
+          padding-left: 15%;
+          padding-right: 5%;
+          padding-bottom: 5%;
+          width: 30%;
+      }
+
+      .stats-container.stats2 {
+          padding-left: 5%;
+          padding-right: 15%;
+      }
+
+      /** stats */
+      .marble-stats {
+        padding-bottom: 5%;
+        position: relative;
+      }
+
+      .marble-stats .marble-container {
+          width: 50%;
+      }
+
+      .marble-stats .marble {
+          opacity: 1;
+      }
+
+      .marble-stats .marble-text {
+          font-size: 2vw;
+          padding-top: 15%;
+      }
+
+      .marble-stats .stats-text {
+          position: absolute;
+          left: 50%;
+          font-size: 2vw;
+          padding-top: 5.5%;
+      }
+
+      .stats-text.marble-warning {
+          color: rgb(255, 100, 100);
+          font-weight: bold;
+      }
+
+
+
+    </style>
+  </head>
+  <body>
+
+    <!-- Include Scala.js compiled code -->
+    <script type="text/javascript" src="./marbles-opt.js"></script>
+    <script type="text/javascript" src="./target/scala-2.12/marbles-fastopt.js"></script>
+  </body>
+</html>
